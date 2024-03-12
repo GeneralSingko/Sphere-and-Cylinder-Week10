@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 1.24
   height: 4.47
-  transformPosition: {x: 0.14, y: 0, z: -0.3}
+  transformPosition: {x: 0.88, y: 0, z: -1.62}
   segments: 14

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Sphere
   m_EditorClassIdentifier: 
   radius: 1
-  transformPosition: {x: 2.2, y: 0.03, z: -5.53}
-  longitudeSegments: 17
-  latitudeSegments: 9
+  transformPosition: {x: 2.2, y: -0.11, z: -6.55}
+  longitudeSegments: 7
+  latitudeSegments: 10

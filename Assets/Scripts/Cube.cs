@@ -22,6 +22,7 @@ public class Cube : ScriptableObject
                 new Vector3(transformPosition.x -(width/2), transformPosition.y -(height/2), transformPosition.z + (length/2)),
                 new Vector3(transformPosition.x -(width/2), transformPosition.y +(height/2), transformPosition.z + (length/2))
             };
+
         }
     }
 
