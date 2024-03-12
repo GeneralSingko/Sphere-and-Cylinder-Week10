@@ -10,18 +10,21 @@ public class Cube : ScriptableObject
     public float width;
 
     public Vector3 transformPosition;
+    public float rotationAngle;
 
     public Vector3[] frontSide
     {
         get
         {
-            return new Vector3[]
-            {
-                new Vector3(transformPosition.x +(width/2), transformPosition.y +(height/2), transformPosition.z + (length/2)),
-                new Vector3(transformPosition.x +(width/2), transformPosition.y -(height/2), transformPosition.z + (length/2)),
-                new Vector3(transformPosition.x -(width/2), transformPosition.y -(height/2), transformPosition.z + (length/2)),
-                new Vector3(transformPosition.x -(width/2), transformPosition.y +(height/2), transformPosition.z + (length/2))
-            };
+            Vector3[] points = new Vector3[4];
+            Quaternion rotation = Quaternion.Euler(0f, 0f, rotationAngle);
+
+            points[0] = rotation * (transformPosition + new Vector3(width / 2, height / 2, length / 2));
+            points[1] = rotation * (transformPosition + new Vector3(width / 2, -height / 2, length / 2));
+            points[2] = rotation * (transformPosition + new Vector3(-width / 2, -height / 2, length / 2));
+            points[3] = rotation * (transformPosition + new Vector3(-width / 2, height / 2, length / 2));
+
+            return points;
 
         }
     }
@@ -30,13 +33,15 @@ public class Cube : ScriptableObject
     {
         get
         {
-            return new Vector3[]
-            {
-                new Vector3(transformPosition.x +(width/2), transformPosition.y +(height/2), transformPosition.z - (length/2)),
-                new Vector3(transformPosition.x +(width/2), transformPosition.y -(height/2), transformPosition.z - (length/2)),
-                new Vector3(transformPosition.x -(width/2), transformPosition.y -(height/2), transformPosition.z - (length/2)),
-                new Vector3(transformPosition.x -(width/2), transformPosition.y +(height/2), transformPosition.z - (length/2))
-            };
+            Vector3[] points = new Vector3[4];
+            Quaternion rotation = Quaternion.Euler(0f, 0f, rotationAngle);
+
+            points[0] = rotation * (transformPosition + new Vector3(width / 2, height / 2, -length / 2));
+            points[1] = rotation * (transformPosition + new Vector3(width / 2, -height / 2, -length / 2));
+            points[2] = rotation * (transformPosition + new Vector3(-width / 2, -height / 2, -length / 2));
+            points[3] = rotation * (transformPosition + new Vector3(-width / 2, height / 2, -length / 2));
+
+            return points;
         }
     }
 
