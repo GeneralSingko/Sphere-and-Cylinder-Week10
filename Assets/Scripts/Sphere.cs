@@ -9,7 +9,7 @@ public class Sphere : ScriptableObject
     public Vector3 transformPosition;
     public int longitudeSegments;
     public int latitudeSegments;
-    public float rotationAngle;
+    public Vector3 localRotation;
 
     public Vector3[] GeneratePoints(int longitudeSegments, int latitudeSegments)
     {
@@ -18,8 +18,7 @@ public class Sphere : ScriptableObject
         float thetaStep = Mathf.PI / latitudeSegments;
         int index = 0;
 
-        // Apply rotation around z-axis
-        Quaternion rotation = Quaternion.Euler(0f, 0f, rotationAngle);
+        Quaternion rotation = Quaternion.Euler(localRotation);
 
         for (int lat = 0; lat <= latitudeSegments; lat++)
         {

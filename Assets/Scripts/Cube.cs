@@ -16,15 +16,15 @@ public class Cube : ScriptableObject
     {
         get
         {
-            Vector3[] points = new Vector3[4];
-            Quaternion rotation = Quaternion.Euler(0f, 0f, rotationAngle);
+            Vector3[] points = new Vector3[]
+            {
+                new Vector3(width/2, height/2, length/2),
+                new Vector3(width/2, -height/2, length/2),
+                new Vector3(-width/2, -height/2, length/2),
+                new Vector3(-width/2, height/2, length/2)
+            };
 
-            points[0] = rotation * (transformPosition + new Vector3(width / 2, height / 2, length / 2));
-            points[1] = rotation * (transformPosition + new Vector3(width / 2, -height / 2, length / 2));
-            points[2] = rotation * (transformPosition + new Vector3(-width / 2, -height / 2, length / 2));
-            points[3] = rotation * (transformPosition + new Vector3(-width / 2, height / 2, length / 2));
-
-            return points;
+            return ApplyRotation(points);
 
         }
     }
@@ -33,15 +33,15 @@ public class Cube : ScriptableObject
     {
         get
         {
-            Vector3[] points = new Vector3[4];
-            Quaternion rotation = Quaternion.Euler(0f, 0f, rotationAngle);
+            Vector3[] points = new Vector3[]
+            {
+                new Vector3(width/2, height/2, -length/2),
+                new Vector3(width/2, -height/2, -length/2),
+                new Vector3(-width/2, -height/2, -length/2),
+                new Vector3(-width/2, height/2, -length/2)
+            };
 
-            points[0] = rotation * (transformPosition + new Vector3(width / 2, height / 2, -length / 2));
-            points[1] = rotation * (transformPosition + new Vector3(width / 2, -height / 2, -length / 2));
-            points[2] = rotation * (transformPosition + new Vector3(-width / 2, -height / 2, -length / 2));
-            points[3] = rotation * (transformPosition + new Vector3(-width / 2, height / 2, -length / 2));
-
-            return points;
+            return ApplyRotation(points);
         }
     }
 
@@ -49,10 +49,12 @@ public class Cube : ScriptableObject
     {
         get
         {
-            return new Vector3[]
+            Vector3[] points = new Vector3[]
             {
                 frontSide[0], frontSide[1], backSide[1], backSide[0]
             };
+
+            return ApplyRotation(points);
         }
     }
 
@@ -60,10 +62,24 @@ public class Cube : ScriptableObject
     {
         get
         {
-            return new Vector3[]
+            Vector3[] points = new Vector3[]
             {
                 frontSide[2], frontSide[3], backSide[3], backSide[2]
             };
+
+            return ApplyRotation(points);
         }
+    }
+
+    private Vector3[] ApplyRotation(Vector3[] points)
+    {
+        Quaternion rotation = Quaternion.Euler(0f, 0f, rotationAngle);
+
+        for (int i = 0; i < points.Length; i++)
+        {
+            points[i] = rotation * points[i] + transformPosition;
+        }
+
+        return points;
     }
 }

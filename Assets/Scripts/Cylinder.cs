@@ -9,7 +9,7 @@ public class Cylinder : ScriptableObject
     public float height;
     public Vector3 transformPosition;
     public int segments;
-    public float rotationAngle;
+    public Vector3 localRotation;
 
     public Vector3[] points
     {
@@ -20,10 +20,8 @@ public class Cylinder : ScriptableObject
 
             float segmentAngle = 360f / segments;
 
-            // Apply rotation around z-axis
-            Quaternion rotation = Quaternion.Euler(0f, 0f, rotationAngle);
+            Quaternion rotation = Quaternion.Euler(localRotation);
 
-            // Top circle
             for (int i = 0; i < segments; i++)
             {
                 float angle = Mathf.Deg2Rad * (i * segmentAngle);
@@ -31,7 +29,7 @@ public class Cylinder : ScriptableObject
                 float z = Mathf.Sin(angle) * radius;
                 cylinderPoints[i] = rotation * (transformPosition + new Vector3(x, height / 2, z));
             }
-            // Bottom circle
+
             for (int i = 0; i < segments; i++)
             {
                 float angle = Mathf.Deg2Rad * (i * segmentAngle);
