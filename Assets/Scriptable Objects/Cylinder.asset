@@ -16,3 +16,4 @@ MonoBehaviour:
   height: 4.47
   transformPosition: {x: 0.88, y: 0, z: -1.62}
   segments: 14
+  localRotation: {x: 0, y: 0, z: 0}

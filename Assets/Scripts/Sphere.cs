@@ -9,6 +9,7 @@ public class Sphere : ScriptableObject
     public Vector3 transformPosition;
     public int longitudeSegments;
     public int latitudeSegments;
+    public Vector3 localRotation;
 
     public Vector3[] GeneratePoints(int longitudeSegments, int latitudeSegments)
     {
@@ -16,6 +17,8 @@ public class Sphere : ScriptableObject
         float phiStep = 2 * Mathf.PI / longitudeSegments;
         float thetaStep = Mathf.PI / latitudeSegments;
         int index = 0;
+
+        Quaternion rotation = Quaternion.Euler(localRotation);
 
         for (int lat = 0; lat <= latitudeSegments; lat++)
         {
@@ -33,7 +36,7 @@ public class Sphere : ScriptableObject
                 float y = cosTheta;
                 float z = sinPhi * sinTheta;
 
-                points[index] = new Vector3(x * radius, y * radius, z * radius) + transformPosition;
+                points[index] = rotation * (new Vector3(x * radius, y * radius, z * radius) + transformPosition);
                 index++;
             }
         }

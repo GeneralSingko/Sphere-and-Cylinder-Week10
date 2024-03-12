@@ -7,16 +7,18 @@ public class Shape : ScriptableObject
 {
     [SerializeField]private Vector3[] points;
     public Vector3 transformPosition;
+    public Vector3 localRotation;
+
     public Vector3[] actualPoints
     {
         get
         {
             var newPoint = new Vector3[points.Length];
-            for( int i = 0; i < newPoint.Length; i++)
+            Quaternion rotation = Quaternion.Euler(localRotation);
+            for (int i = 0; i < newPoint.Length; i++)
             {
-                newPoint[i] = transformPosition - points[i];
+                newPoint[i] = rotation * (transformPosition - points[i]);
             }
-
             return newPoint;
         }
     }

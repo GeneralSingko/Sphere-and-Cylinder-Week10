@@ -10,18 +10,21 @@ public class Cube : ScriptableObject
     public float width;
 
     public Vector3 transformPosition;
+    public float rotationAngle;
 
     public Vector3[] frontSide
     {
         get
         {
-            return new Vector3[]
+            Vector3[] points = new Vector3[]
             {
-                new Vector3(transformPosition.x +(width/2), transformPosition.y +(height/2), transformPosition.z + (length/2)),
-                new Vector3(transformPosition.x +(width/2), transformPosition.y -(height/2), transformPosition.z + (length/2)),
-                new Vector3(transformPosition.x -(width/2), transformPosition.y -(height/2), transformPosition.z + (length/2)),
-                new Vector3(transformPosition.x -(width/2), transformPosition.y +(height/2), transformPosition.z + (length/2))
+                new Vector3(width/2, height/2, length/2),
+                new Vector3(width/2, -height/2, length/2),
+                new Vector3(-width/2, -height/2, length/2),
+                new Vector3(-width/2, height/2, length/2)
             };
+
+            return ApplyRotation(points);
 
         }
     }
@@ -30,13 +33,15 @@ public class Cube : ScriptableObject
     {
         get
         {
-            return new Vector3[]
+            Vector3[] points = new Vector3[]
             {
-                new Vector3(transformPosition.x +(width/2), transformPosition.y +(height/2), transformPosition.z - (length/2)),
-                new Vector3(transformPosition.x +(width/2), transformPosition.y -(height/2), transformPosition.z - (length/2)),
-                new Vector3(transformPosition.x -(width/2), transformPosition.y -(height/2), transformPosition.z - (length/2)),
-                new Vector3(transformPosition.x -(width/2), transformPosition.y +(height/2), transformPosition.z - (length/2))
+                new Vector3(width/2, height/2, -length/2),
+                new Vector3(width/2, -height/2, -length/2),
+                new Vector3(-width/2, -height/2, -length/2),
+                new Vector3(-width/2, height/2, -length/2)
             };
+
+            return ApplyRotation(points);
         }
     }
 
@@ -44,10 +49,12 @@ public class Cube : ScriptableObject
     {
         get
         {
-            return new Vector3[]
+            Vector3[] points = new Vector3[]
             {
                 frontSide[0], frontSide[1], backSide[1], backSide[0]
             };
+
+            return ApplyRotation(points);
         }
     }
 
@@ -55,10 +62,24 @@ public class Cube : ScriptableObject
     {
         get
         {
-            return new Vector3[]
+            Vector3[] points = new Vector3[]
             {
                 frontSide[2], frontSide[3], backSide[3], backSide[2]
             };
+
+            return ApplyRotation(points);
         }
+    }
+
+    private Vector3[] ApplyRotation(Vector3[] points)
+    {
+        Quaternion rotation = Quaternion.Euler(0f, 0f, rotationAngle);
+
+        for (int i = 0; i < points.Length; i++)
+        {
+            points[i] = rotation * points[i] + transformPosition;
+        }
+
+        return points;
     }
 }
