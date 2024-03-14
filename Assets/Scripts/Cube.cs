@@ -77,7 +77,8 @@ public class Cube : ScriptableObject
 
         for (int i = 0; i < points.Length; i++)
         {
-            points[i] = rotation * points[i] + transformPosition;
+            // Apply rotation around local axis
+            points[i] = transformPosition + (rotation * points[i]);
         }
 
         return points;
