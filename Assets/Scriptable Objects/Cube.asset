@@ -15,5 +15,5 @@ MonoBehaviour:
   length: 1
   height: 1
   width: 1
-  transformPosition: {x: -1.55, y: -0.44, z: -6.22}
+  transformPosition: {x: 0, y: 0, z: 0}
   rotationAngle: 0
